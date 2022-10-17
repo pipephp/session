@@ -1,0 +1,42 @@
+{
+  "name": "pipe/session",
+  "description": "Blazingly fast php session manager",
+  "keywords": [
+    "php",
+    "simple session",
+    "session",
+    "lightweight session"
+  ],
+  "homepage": "https://github.com/pipephp/session",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Unamata Sanatarai",
+      "email": "unamatasanatarai@gmail.com",
+      "homepage": "https://github.com/unamatasanatarai",
+      "role": "c.e.o."
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pipe\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "pestphp/pest": "^1.22"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/pest"
+  }
+}
