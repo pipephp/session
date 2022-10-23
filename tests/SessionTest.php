@@ -2,8 +2,6 @@
 
 use Pipe\Session;
 
-use function Pipe\session;
-
 beforeEach(function () {
     if (session_id()) {
         session_unset();
@@ -44,4 +42,14 @@ it("deletes session var", function () {
 
 it("clears session", function () {
     expect(session()->start()->set("key", "val")->clear()->get("key"))->toEqual(null);
+});
+
+it("get perform a flash action", function () {
+    session()->start()->set("flash.error", "is error");
+    session()->start()->set("flash.warn", "is warn");
+    expect(session()->get("flash.error"))->toEqual("is error");
+    expect(session()->get("flash.warn"))->toEqual("is warn");
+    expect(session()->pluck("flash.warn"))->toEqual("is warn");
+    expect(session()->get("flash.warn"))->toBeNull();
+    expect(session()->get("flash.error"))->toEqual("is error");
 });

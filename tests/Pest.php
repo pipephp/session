@@ -38,3 +38,12 @@
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
+class TMP
+{
+    public static $v;
+}
+function session()
+{
+    return TMP::$v;
+}
+TMP::$v = new Pipe\Session();

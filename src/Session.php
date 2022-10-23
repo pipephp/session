@@ -6,18 +6,8 @@ class Session
 {
     public $name = "pipesess";
     public $lifetime = 0;
-    private static $instance;
 
-    public static function getInstance(): static
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-    public function start():self
+    public function start(): self
     {
         if ($this->started()) {
             return $this;
@@ -29,14 +19,14 @@ class Session
         return $this;
     }
 
-    public function name(string $name):self
+    public function name(string $name): self
     {
         $this->name = $name;
         session_name($this->name);
         return $this;
     }
 
-    public function lifetime(int $lifetime = 0):self
+    public function lifetime(int $lifetime = 0): self
     {
         $this->lifetime = $lifetime;
         session_set_cookie_params($this->lifetime);
@@ -48,13 +38,20 @@ class Session
         return $_SESSION[$key] ?? $default;
     }
 
-    public function set(string $key, $value):self
+    public function set(string $key, $value): self
     {
         $_SESSION[$key] = $value;
         return $this;
     }
 
-    public function delete(string $key):self
+    public function pluck(string $key, $default = null)
+    {
+        $v = $_SESSION[$key] ?? $default;
+        $this->delete($key);
+        return $v;
+    }
+
+    public function delete(string $key): self
     {
         unset($_SESSION[$key]);
         return $this;
@@ -75,7 +72,7 @@ class Session
         return session_id();
     }
 
-    public function destroy():self
+    public function destroy(): self
     {
         if (!$this->id()) {
             return $this;
